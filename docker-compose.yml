@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  flaskapi:
+    image: flaskapi:latest
+    networks: 
+      - backend
+  front:
+    image: front:latest
+    ports:
+      - "8001:5000"
+    links:
+      - flaskapi
+    networks: 
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
