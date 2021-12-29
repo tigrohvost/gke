@@ -1,20 +1,20 @@
 FROM python:slim
 
-RUN useradd flaskapi
+RUN useradd back
 
-WORKDIR /home/flaskapi
+WORKDIR /home/back
 
 RUN python -m venv venv
 RUN venv/bin/pip install flask
 RUN venv/bin/pip install gunicorn
 
-COPY flaskapi.py boot.sh ./
+COPY back.py boot.sh ./
 
 RUN chmod +x boot.sh
-ENV FLASK_APP flaskapi.py
+ENV FLASK_APP back.py
 
-RUN chown -R flaskapi:flaskapi ./
-USER flaskapi
+RUN chown -R back:back ./
+USER back
 
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
