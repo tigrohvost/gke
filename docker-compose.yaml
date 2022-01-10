@@ -1,8 +1,8 @@
 version: '3.5'
 
 services:
-  flaskapi:
-    image: flaskapi:latest
+  back:
+    image: back:latest
     networks: 
       - backend
   front:
@@ -10,7 +10,7 @@ services:
     ports:
       - "8001:5000"
     links:
-      - flaskapi
+      - back
     networks: 
       - backend
 
