@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    url = 'http://flaskapi:5000/random'
+    url = 'http://back:5000/random'
     try:
         res = requests.get(url)
         result = res.text
