@@ -3,10 +3,12 @@ version: '3.5'
 services:
   back:
     image: back:latest
+    restart: always
     networks: 
       - backend
   front:
     image: front:latest
+    restart: always
     ports:
       - "8001:5000"
     links:

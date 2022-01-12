@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: back
+  labels:
+    app: back
+spec:
+  containers:
+    - image: gcr.io/total-zodiac-335107/back
+      name: back
+      ports:
+        - containerPort: 5000
