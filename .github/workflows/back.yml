@@ -34,7 +34,7 @@ jobs:
       - name: test working-directory directive
         working-directory: back
         run: |
-          pwd && echo ${{ secrets.GCR_KEY }}
-      
+          pwd 
+          
       - run: echo "🍏 This job's status is ${{ job.status }}."
  
