@@ -27,5 +27,8 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: list files in back subdir
+        run: |
+          cd ./back && ls -ail .
       - run: echo "🍏 This job's status is ${{ job.status }}."
  
