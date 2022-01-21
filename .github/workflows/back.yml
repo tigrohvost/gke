@@ -14,7 +14,7 @@ env:
   IMAGE: back
   REGISTRY_HOSTNAME: gcr.io
 
-obs:
+jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
