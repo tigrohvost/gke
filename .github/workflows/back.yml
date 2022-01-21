@@ -14,6 +14,9 @@ env:
   IMAGE: back
   REGISTRY_HOSTNAME: gcr.io
 
+defaults:
+  run:
+    working-directory: back
 
 jobs:
   setup-build-publish-deploy:
@@ -38,7 +41,6 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      working-directory: back
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
@@ -48,7 +50,6 @@ jobs:
 
     # Push the Docker image to Google Container Registry
     - name: Publish
-      working-directory: back
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
