@@ -25,16 +25,18 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
 
       # Setup gcloud CLI
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      # some problems here:
+      - name: setup gloud CLI     
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '270.0.0'
           service_account_key: ${{ secrets.GCR_KEY }} 
 
 
-      - name: test working-directory directive
-        working-directory: back
-        run: |
-          pwd 
+#      - name: test working-directory directive
+#        working-directory: back
+#        run: |
+#          pwd 
           
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+#      - run: echo "🍏 This job's status is ${{ job.status }}."
  
