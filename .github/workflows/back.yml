@@ -28,16 +28,16 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: '391838834835-compute@developer.gserviceaccount.com'
 
 
       - name: setup gloud CLI     
         #uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         uses: 'google-github-actions/setup-gcloud@v0'
-        with:
+        #with:
           #version: '270.0.0'
-          service_account_key: ${{ secrets.GCR_KEY }} 
+          #service_account_key: ${{ secrets.GCR_KEY }} 
 
     # Configure docker to use the gcloud command-line tool as a credential helper
       - run: |
