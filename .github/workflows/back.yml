@@ -32,7 +32,7 @@ jobs:
           workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: 'my-service-account@total-zodiac-335107.iam.gserviceaccount.com'
 
-    # Configure docker to use the gcloud command-line tool as a credential helper
+    # Configure docker to use the gcloud command-line tool as a credential helper zzz
       - run: |
           # Set up docker to authenticate
           # via gcloud command-line tool.
