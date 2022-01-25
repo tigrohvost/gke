@@ -10,7 +10,7 @@ env:
   GITHUB_REF: ${{ github.ref }} 
   IMAGE: back
   #REGISTRY_HOSTNAME: gcr.io
-  REGISTRY_HOSTNAME: gcr.io/total-zodiac-335107/
+  REGISTRY_HOSTNAME: gcr.io/total-zodiac-335107
 
 jobs:
   Explore-GitHub-Actions:
