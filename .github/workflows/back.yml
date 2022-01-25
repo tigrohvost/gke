@@ -4,20 +4,14 @@ on:
   push:
     branches:
       - main
-      
-# Environment variables available to all jobs and steps in this workflow
-#  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
-#  GKE_KEY: ${{ secrets.GKE_KEY }} 
-env:
-  GITHUB_SHA: ${{ github.sha }} 
-  GITHUB_REF: ${{ github.ref }} 
-  IMAGE: back
-  REGISTRY_HOSTNAME: gcr.io
-
 
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -30,37 +24,3 @@ jobs:
         with:
           workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: '391838834835-compute@developer.gserviceaccount.com'
-
-
-      - name: setup gloud CLI     
-        #uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        uses: 'google-github-actions/setup-gcloud@v0'
-        #with:
-          #version: '270.0.0'
-          #service_account_key: ${{ secrets.GCR_KEY }} 
-
-    # Configure docker to use the gcloud command-line tool as a credential helper
-      - run: |
-          gcloud auth configure-docker
-
-
-      - name: 'Use gcloud CLI'
-        run: 'gcloud info'
-
-#    # Build the Docker image
-#      - name: Build
-#        run: |
-#          export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-#          echo $TAG
-##          docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
- #           --build-arg GITHUB_SHA="$GITHUB_SHA" \
- #           --build-arg GITHUB_REF="$GITHUB_REF" .
-
-
-#      - name: test working-directory directive
-#        working-directory: back
-#        run: |
-#          pwd 
-          
-#      - run: echo "🍏 This job's status is ${{ job.status }}."
- 
