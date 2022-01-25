@@ -50,7 +50,6 @@ jobs:
       - name: Publish
         run: |
           export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-          echo '--------------------'
           echo $TAG
-          echo $REGISTRY_HOSTNAME 
-          echo $IMAGE
+          docker push "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG"
+
