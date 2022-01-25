@@ -36,6 +36,16 @@ jobs:
           gcloud auth configure-docker
 
 
+    # Build the Docker image
+      - name: Build
+        run: |
+          export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+          echo $TAG
+          docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" .
+
+
 #      - name: test working-directory directive
 #        working-directory: back
 #        run: |
