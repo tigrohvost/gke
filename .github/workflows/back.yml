@@ -24,9 +24,17 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
 
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: '391838834835-compute@developer.gserviceaccount.com'
+
+
       - name: setup gloud CLI     
         #uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        uses: google-github-actions/setup-gcloud@v0
+        uses: 'google-github-actions/setup-gcloud@v0'
         with:
           #version: '270.0.0'
           service_account_key: ${{ secrets.GCR_KEY }} 
@@ -36,14 +44,17 @@ jobs:
           gcloud auth configure-docker
 
 
-    # Build the Docker image
-      - name: Build
-        run: |
-          export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-          echo $TAG
-          docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
-            --build-arg GITHUB_SHA="$GITHUB_SHA" \
-            --build-arg GITHUB_REF="$GITHUB_REF" .
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+#    # Build the Docker image
+#      - name: Build
+#        run: |
+#          export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+#          echo $TAG
+##          docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
+ #           --build-arg GITHUB_SHA="$GITHUB_SHA" \
+ #           --build-arg GITHUB_REF="$GITHUB_REF" .
 
 
 #      - name: test working-directory directive
