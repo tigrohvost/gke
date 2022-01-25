@@ -39,6 +39,7 @@ jobs:
 
     # Build the Docker image
       - name: Build
+        working-directory: back
         run: |
           export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
           echo $TAG
