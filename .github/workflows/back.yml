@@ -9,7 +9,8 @@ env:
   GITHUB_SHA: ${{ github.sha }} 
   GITHUB_REF: ${{ github.ref }} 
   IMAGE: back
-  REGISTRY_HOSTNAME: gcr.io
+  #REGISTRY_HOSTNAME: gcr.io
+  REGISTRY_HOSTNAME: gcr.io/total-zodiac-335107/
 
 jobs:
   Explore-GitHub-Actions:
@@ -52,4 +53,6 @@ jobs:
           export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
           echo $TAG
           docker push "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG"
+          docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+          docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
 
