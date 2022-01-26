@@ -9,6 +9,7 @@ env:
   GITHUB_SHA: ${{ github.sha }} 
   GITHUB_REF: ${{ github.ref }} 
   IMAGE: back
+  DEPLOYMENT_NAME: back
   #REGISTRY_HOSTNAME: gcr.io
   REGISTRY_HOSTNAME: gcr.io/total-zodiac-335107
 
@@ -57,6 +58,9 @@ jobs:
           docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
 
 ###
-      - name: Publish
-        run: |
+      - name: Deploy
+        run: |-
+          ./kustomize edit set image gcr.io/total-zodiac-335107/$IMAGE:TAG=gcr.io/total-zodiac-335107/$IMAGE:$GITHUB_SHA
+          ./kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
