@@ -56,3 +56,7 @@ jobs:
           docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
           docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
 
+###
+      - name: Publish
+        run: |
+          kubectl get services -o wide
