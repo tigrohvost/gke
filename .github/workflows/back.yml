@@ -12,6 +12,9 @@ env:
   DEPLOYMENT_NAME: back
   #REGISTRY_HOSTNAME: gcr.io
   REGISTRY_HOSTNAME: gcr.io/total-zodiac-335107
+  PROJECT_ID: total-zodiac-335107
+  GKE_CLUSTER: cluster-1
+  GKE_ZONE: europe-north1-a
 
 jobs:
   Explore-GitHub-Actions:
@@ -57,10 +60,3 @@ jobs:
           docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
           docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
 
-###
-      - name: Deploy
-        run: |-
-          ./kustomize edit set image gcr.io/total-zodiac-335107/$IMAGE:TAG=gcr.io/total-zodiac-335107/$IMAGE:$GITHUB_SHA
-          ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/$DEPLOYMENT_NAME
-          kubectl get services -o wide
