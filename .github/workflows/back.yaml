@@ -31,7 +31,7 @@ jobs:
       uses: 'google-github-actions/auth@v0'
       with:
         workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: '391838834835-compute@developer.gserviceaccount.com'
+        service_account: 'github-actions@total-zodiac-335107.iam.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
     # - id: 'auth'
