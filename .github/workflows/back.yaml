@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+env:
+  $GCLOUD_PROJECT: total-zodiac-335107
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
