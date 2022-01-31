@@ -40,8 +40,8 @@ jobs:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     # Setup gcloud CLI
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
+    #- name: Set up Cloud SDK
+    #  uses: google-github-actions/setup-gcloud@v0
 
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
