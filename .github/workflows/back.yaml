@@ -1,16 +1,29 @@
-steps:
-- id: auth
-  uses: google-github-actions/auth@v0.4.0
-  with:
-    workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-    service_account: 'my-service-account@total-zodiac-335107.iam.gserviceaccount.com'
+name: GKE
+on:
+  push:
+    branches:
+      - main
 
-- id: get-gke-credentials
-  uses: google-github-actions/get-gke-credentials@v0.4.0
-  with:
-    cluster_name: cluster-1
-    location: europe-north1-a
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
-- id: get-pods
-  run: kubectl get pods
+    steps:
+    - id: auth
+      uses: google-github-actions/auth@v0.4.0
+      with:
+        workload_identity_provider: 'projects/391838834835/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        service_account: 'my-service-account@total-zodiac-335107.iam.gserviceaccount.com'
+
+    - id: get-gke-credentials
+      uses: google-github-actions/get-gke-credentials@v0.4.0
+      with:
+        cluster_name: cluster-1
+        location: europe-north1-a
+
+    - id: get-pods
+      run: kubectl get pods
 
