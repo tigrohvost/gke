@@ -38,6 +38,7 @@ jobs:
         gcloud config set compute/region europe-north
         gcloud config set compute/zone $GKE_ZONE
         gcloud components update
+        gcloud auth login
         kubectl get nodes
         
 
