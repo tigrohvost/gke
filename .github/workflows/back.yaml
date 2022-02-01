@@ -29,12 +29,13 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v0'
+      with:
+        cluster_name: 'cluster-1'
+        location: 'europe-north1-a'
 
-    - name: 'get nodes'
-      run: |
-        gcloud auth login
-        kubectl get nodes
-        
+    # The KUBECONFIG env var is automatically exported and picked up by kubectl.
+    - id: 'get-pods'
+      run: 'kubectl get pods'        
 
