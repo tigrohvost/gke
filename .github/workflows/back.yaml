@@ -33,6 +33,11 @@ jobs:
       run: 'gcloud info'
 
     - name: 'get nodes'
-      run: 'kubectl get nodes'
-
+      run: |
+        gcloud config set project $PROJECT_ID
+        gcloud config set compute/region europe-north
+        gcloud config set compute/zone $GKE_ZONE
+        gcloud components update
+        kubectl get nodes
+        
 
