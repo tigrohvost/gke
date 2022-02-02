@@ -32,6 +32,8 @@ jobs:
     - id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v0'
       with:
+        workload_identity_provider: 'projects/321169889619/locations/global/workloadIdentityPools/gha-pool/providers/gha-provider'
+        service_account: 'gha-service-acc@github-actions-339911.iam.gserviceaccount.com'
         cluster_name: 'cluster-1'
         location: 'europe-north1-a'
 
