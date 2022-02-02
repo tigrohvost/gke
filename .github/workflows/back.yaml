@@ -32,7 +32,7 @@ jobs:
     - id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v0'
       with:
-        cluster_name: 'cluster-1'
+        cluster_name: 'gha-cluster'
         location: 'europe-north1-a'
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
