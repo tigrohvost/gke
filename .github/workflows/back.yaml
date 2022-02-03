@@ -50,9 +50,9 @@ jobs:
       run: 'kubectl get pods'        
 
     # Deploy sample image to the GKE cluster
-    - name: Deploy
+    #- name: Deploy
       #working-directory: back
-      run: |-
-        kubectl apply -f back-deployment.yaml
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl get services -o wide
+      #run: |-
+        #kubectl apply -f back-deployment.yaml
+        #kubectl rollout status deployment/$DEPLOYMENT_NAME
+        #kubectl get services -o wide
