@@ -6,6 +6,8 @@ on:
     - main
 
 env:
+  GITHUB_SHA: ${{ github.sha }} 
+  GITHUB_REF: ${{ github.ref }} 
   PROJECT_ID: github-actions-339911
   GKE_CLUSTER: gha-cluster    # TODO: update to cluster name
   GKE_ZONE: europe-north1-a	   # TODO: update to cluster zone
@@ -45,13 +47,24 @@ jobs:
         cluster_name: 'gha-cluster'
         location: 'europe-north1-a'
 
-
     # Configure docker to use the gcloud command-line tool as a credential helper zzz!
     - run: |
         # Set up docker to authenticate
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
+
+
+    # >>>>>
+    # Build the Docker image
+    - name: Build
+      working-directory: back
+      run: |
+        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        echo $TAG
+        docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
+        --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        --build-arg GITHUB_REF="$GITHUB_REF" .
 
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
