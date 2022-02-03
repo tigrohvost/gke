@@ -30,10 +30,10 @@ jobs:
         service_account: 'gha-service-acc@github-actions-339911.iam.gserviceaccount.com'
 
 
-    - name: 'Check out repository code'
-      uses: actions/checkout@v2
-    - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-    - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+    #- name: 'Check out repository code'
+    #  uses: actions/checkout@v2
+    #- run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+    #- run: echo "🖥️ The workflow is now ready to test your code on the runner."
 
 
     - name: 'Set up Cloud SDK'
@@ -51,7 +51,7 @@ jobs:
 
     # Deploy sample image to the GKE cluster
     - name: Deploy
-      working-directory: back
+      #working-directory: back
       run: |-
         kubectl apply -f back-deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME
