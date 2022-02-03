@@ -53,9 +53,6 @@ jobs:
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
-
-
-    # >>>>>
     # Build the Docker image
     - name: Build
       working-directory: back
@@ -65,6 +62,16 @@ jobs:
         docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
         --build-arg GITHUB_SHA="$GITHUB_SHA" \
         --build-arg GITHUB_REF="$GITHUB_REF" .
+
+    # >>>>>
+    - name: Publish
+      run: |
+        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        echo $TAG
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG"
+        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+
 
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
