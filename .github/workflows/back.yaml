@@ -11,9 +11,11 @@ env:
   PROJECT_ID: github-actions-339911
   GKE_CLUSTER: gha-cluster    # TODO: update to cluster name
   GKE_ZONE: europe-north1-a	   # TODO: update to cluster zone
-  DEPLOYMENT_NAME_BACK: back # TODO: update deployment name if changed in deployment.yaml
   REGISTRY_HOSTNAME: gcr.io/github-actions-339911
+  DEPLOYMENT_NAME_BACK: back # TODO: update deployment name if changed in deployment.yaml
   IMAGE_BACK: back
+  DEPLOYMENT_NAME_FRONT: front # TODO: update deployment name if changed in deployment.yaml
+  IMAGE_FRONT: front
 
 
 jobs:
@@ -54,7 +56,7 @@ jobs:
         gcloud auth configure-docker
 
     # Build the backend Docker image
-    - name: Build
+    - name: Build back
       working-directory: back
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
@@ -72,6 +74,27 @@ jobs:
         docker push "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":latest
 
 
+
+    # Build the front Docker image
+    - name: Build front
+      working-directory: front
+      run: |
+        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        echo $TAG
+        docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE_FRONT":"$TAG" \
+        --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        --build-arg GITHUB_REF="$GITHUB_REF" .
+
+    - name: Publish frontend
+      run: |
+        export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+        echo $TAG
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE_FRONT":"$TAG"
+        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE_FRONT":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE_FRONT":latest
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE_FRONT":latest
+
+
+
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
     - id: 'get-pods'
       run: 'kubectl get pods'        
@@ -83,3 +106,5 @@ jobs:
         kubectl apply -f back-deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME_BACK
         kubectl get services -o wide
+
+
