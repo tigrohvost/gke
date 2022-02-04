@@ -13,7 +13,7 @@ env:
   GKE_ZONE: europe-north1-a	   # TODO: update to cluster zone
   DEPLOYMENT_NAME: back # TODO: update deployment name if changed in deployment.yaml
   REGISTRY_HOSTNAME: gcr.io/github-actions-339911
-  IMAGE: back
+  IMAGE_BACK: back
 
 
 jobs:
@@ -53,23 +53,23 @@ jobs:
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
-    # Build the Docker image
+    # Build the backend Docker image
     - name: Build
       working-directory: back
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" \
+        docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":"$TAG" \
         --build-arg GITHUB_SHA="$GITHUB_SHA" \
         --build-arg GITHUB_REF="$GITHUB_REF" .
 
-    - name: Publish
+    - name: Publish backend
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":"$TAG"
+        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":latest
+        docker push "$REGISTRY_HOSTNAME"/"$IMAGE_BACK":latest
 
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
