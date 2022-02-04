@@ -19,7 +19,7 @@ spec:
         app: back
     spec:
       containers:
-       - image: gcr.io/total-zodiac-335107/back
+       - image: gcr.io/github-actions-339911/back
          imagePullPolicy: Always
          name: back
          ports:
