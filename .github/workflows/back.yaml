@@ -99,12 +99,19 @@ jobs:
     - id: 'get-pods'
       run: 'kubectl get pods'        
 
-    # Deploy sample image to the GKE cluster
-    - name: Deploy
+    # Deploy back image to the GKE cluster
+    - name: Deploy back
       #working-directory: back
       run: |-
         kubectl apply -f back-deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME_BACK
         kubectl get services -o wide
 
+    # Deploy front image to the GKE cluster
+    - name: Deploy front
+      #working-directory: back
+      run: |-
+        kubectl apply -f front-deployment.yaml
+        kubectl rollout status deployment/$DEPLOYMENT_NAME_FRONT
+        kubectl get services -o wide
 
