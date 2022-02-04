@@ -104,7 +104,7 @@ jobs:
       #working-directory: back
       run: |-
         kubectl apply -f back-deployment.yaml
-        kubectl rollout status deployment/$DEPLOYMENT_NAME_BACK
+        kubectl rollout restart deployment/$DEPLOYMENT_NAME_BACK
         kubectl get services -o wide
 
     # Deploy front image to the GKE cluster
@@ -112,7 +112,8 @@ jobs:
       #working-directory: back
       run: |-
         kubectl apply -f front-deployment.yaml
-        kubectl rollout status deployment/$DEPLOYMENT_NAME_FRONT
+        #status
+        kubectl rollout restart deployment/$DEPLOYMENT_NAME_FRONT
         kubectl get services -o wide
 
     # Deploy services to the GKE cluster
