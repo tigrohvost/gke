@@ -115,3 +115,10 @@ jobs:
         kubectl rollout status deployment/$DEPLOYMENT_NAME_FRONT
         kubectl get services -o wide
 
+    # Deploy services to the GKE cluster
+    - name: Deploy services
+      #working-directory: back
+      run: |-
+        kubectl apply -f service-back.yaml
+        kubectl apply -f service-front-lb.yaml
+        kubectl get services -o wide
