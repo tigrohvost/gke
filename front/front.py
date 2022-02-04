@@ -8,7 +8,7 @@ def home():
     url = 'http://back:5000/random'
     try:
         res = requests.get(url)
-        result = res.text
+        result = res.text + ' =^_^='
     except:
         result = 'n/a'
     return result
