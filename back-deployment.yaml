@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
        - image: gcr.io/github-actions-339911/back:latest
-         imagePullPolicy: Always
+         imagePullPolicy: IfNotPresent
          name: back
          ports:
            - containerPort: 5000
