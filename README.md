@@ -10,3 +10,6 @@ kubectl apply -f ./back-pod.yaml
 kubectl apply -f ./front-pod.yaml
 kubectl create -f service-front-lb.yaml
 kubectl apply -f ./service-back.yaml
+
+minikube specific:
+https://minikube.sigs.k8s.io/docs/handbook/pushing/
